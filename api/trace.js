@@ -1,5 +1,7 @@
-export default async function handler(req, res) {
-  const tx = req.query.tx;
+const fetch = require("node-fetch");
+
+module.exports = async (req, res) => {
+  const { tx } = req.query;
   const HELIUS_KEY = "ec6c83de-d88d-4970-9800-80b61fbfcf67";
 
   if (!tx) {
@@ -23,9 +25,11 @@ export default async function handler(req, res) {
 
     return res.status(200).json(json[0]);
   } catch (error) {
+    console.error("Erreur serveur :", error);
     return res.status(500).json({
       message: "Erreur interne.",
       detail: error.message,
     });
   }
-}
+};
+
